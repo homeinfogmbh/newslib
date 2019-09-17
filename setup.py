@@ -4,7 +4,7 @@ from distutils.core import setup
 
 
 setup(
-    name='lptlib',
+    name='newslib',
     version='latest',
     author='HOMEINFO - Digitale Informationssysteme GmbH',
     author_email='<info at homeinfo dot de>',
@@ -17,5 +17,5 @@ setup(
         'trias',
         'hafas',
         'wsgilib'],
-    packages=['lptlib'],
-    description='General purpose local public transport API.')
+    packages=['newslib'],
+    description='Multi-source news API.')

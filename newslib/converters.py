@@ -1,5 +1,10 @@
 """Conversion from news from welt.de."""
 
+from newslib.dom import Article, Attachment
+
+from filedb import get
+from mimeutil import FileMetaData
+
 
 __all__ = ['welt_to_dom']
 

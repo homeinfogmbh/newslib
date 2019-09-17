@@ -9,7 +9,7 @@ from newslib.config import CONFIG
 from newslib.enumerations import Provider
 
 
-__all__ = ['CustomerSource']
+__all__ = ['CustomerProvider']
 
 
 DATABASE = MySQLDatabase.from_config(CONFIG['db'])
@@ -18,7 +18,7 @@ DATABASE = MySQLDatabase.from_config(CONFIG['db'])
 class NewslibModel(JSONModel):
     """Base model for the news library database."""
 
-    class Meta:
+    class Meta:     # pylint: disable=C0111,R0903
         database = DATABASE
         schema = database.database
 
@@ -26,7 +26,7 @@ class NewslibModel(JSONModel):
 class CustomerProvider(NewslibModel):
     """Whitelist of news providers for customers."""
 
-    class Meta:
+    class Meta:     # pylint: disable=C0111,R0903
         table_name = 'customer_provider'
 
     customer = ForeignKeyField(
