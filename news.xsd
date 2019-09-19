@@ -105,26 +105,6 @@
         </xs:annotation>
         <xs:simpleContent>
             <xs:extension base="xs:string">
-                <xs:attribute name="mimetype" type="xs:string">
-                    <xs:annotation>
-                        <xs:documentation xml:lang="de">
-                            MIME Typ des Bildes.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-          </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-
-
-    <xs:complexType name="Attachment">
-        <xs:annotation>
-            <xs:documentation xml:lang="de">
-                Dateianhang.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:simpleContent>
-            <xs:extension base="xs:string">
                 <xs:attribute name="mimetype" type="xs:string" use="required">
                     <xs:annotation>
                         <xs:documentation xml:lang="de">
