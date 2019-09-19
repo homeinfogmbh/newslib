@@ -2,7 +2,8 @@
 from different sources into a centralized format.
 """
 
-from newslib.orm import CustomerSource
+from newslib.converters import welt_to_dom
+from newslib.orm import CustomerProvider
 
 
-__all__ = ['CustomerSource']
+__all__ = ['welt_to_dom', 'CustomerProvider']
