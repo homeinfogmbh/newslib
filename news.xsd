@@ -87,7 +87,7 @@
               </xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="provider" type="Provider">
+        <xs:attribute name="provider" type="Provider" use="required">
           <xs:annotation>
               <xs:documentation xml:lang="de">
                   Datenbank-ID.

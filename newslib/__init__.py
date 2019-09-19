@@ -2,9 +2,8 @@
 from different sources into a centralized format.
 """
 
-from newslib.converters import welt_to_dom
 from newslib.enumerations import Provider
-from newslib.orm import CustomerProvider
+from newslib.filters import articles
 
 
-__all__ = ['welt_to_dom', 'Provider', 'CustomerProvider']
+__all__ = ['articles', 'Provider']
