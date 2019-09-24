@@ -33,3 +33,10 @@ class CustomerProvider(NewslibModel):
         Customer, column_name='customer', on_delete='CASCADE',
         on_update='CASCADE')
     provider = EnumField(Provider)
+
+    @classmethod
+    def from_json(cls, json, customer=None, **kwargs):
+        """Returns a new customer provider from a JSON-ish dict."""
+        record = super().from_json(json, **kwargs)
+        record.customer = customer
+        return record
