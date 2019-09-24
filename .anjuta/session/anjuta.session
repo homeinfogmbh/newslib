@@ -2,7 +2,7 @@
 Geometry=1920x983+26+23
 
 [File Loader]
-Files=../../newslib/converters.py#30%%%../../news.xsd#140%%%../../newslib/orm.py#12%%%../../setup.py#21%%%../../Makefile#8
+Files=../../newslib/converters.py#10%%%../../news.xsd#127%%%../../newslib/orm.py#26%%%../../setup.py#21%%%../../Makefile#21%%%../../newslib/__init__.py#4%%%../../newslib/config.py#1%%%../../newslib/enumerations.py#6%%%../../newslib/filters.py#40%%%../../newslib/wsgi.py#19
 
 [Document Manager]
 bookmarks=<?xml version="1.0" encoding="UTF-8"?>\n<bookmarks/>\n
