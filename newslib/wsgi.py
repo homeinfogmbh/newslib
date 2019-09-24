@@ -22,17 +22,6 @@ APPLICATION = Application('news')
 
 
 @authenticated
-@authorized('news')
-def my_providers():
-    """Lists providers enabled for the current customer."""
-
-    return JSON([
-        customer_provider.provider.value for customer_provider
-        in CustomerProvider.select().where(
-            CustomerProvider.customer == CUSTOMER.id)])
-
-
-@authenticated
 @root
 def list_providers():
     """Lists customer providers."""
@@ -41,12 +30,13 @@ def list_providers():
 
 
 @authenticated
-@root
+@authorized('news')
 def list_customer_providers():
     """Lists customer providers."""
 
     return JSON([
-        customer_provider.to_json() for customer_provider in CustomerProvider])
+        customer_provider.to_json() for customer_provider in
+        CustomerProvider.select().where(CustomerProvider.id == CUSTOMER.id)])
 
 
 @authenticated
@@ -82,8 +72,7 @@ def delete_customer_provider(ident):
 
 
 APPLICATION.add_routes((
-    ('GET', '/providers', my_providers),
-    ('GET', '/providers/all', list_providers),
+    ('GET', '/providers', list_providers),
     ('GET', '/customer-providers', list_customer_providers),
     ('POST', '/customer-providers', add_customer_provider),
     ('DELETE', '/customer-provider/<int:ident>', delete_customer_provider)
