@@ -76,5 +76,5 @@ APPLICATION.add_routes((
     ('GET', '/providers', list_providers),
     ('GET', '/customer-providers', list_customer_providers),
     ('POST', '/customer-providers', add_customer_provider),
-    ('DELETE', '/customer-provider/<int:ident>', delete_customer_provider)
+    ('DELETE', '/customer-providers/<int:ident>', delete_customer_provider)
 ))
