@@ -4,6 +4,7 @@ from flask import request
 
 from his import CUSTOMER, authenticated, authorized, root, Application
 from mdb import Customer
+from previewlib import preview, DeploymentPreviewToken
 from wsgilib import JSON
 
 from newslib.enumerations import Provider
@@ -70,6 +71,13 @@ def delete_customer_provider(ident):
 
     customer_provider.delete_instance()
     return CUSTOMER_PROVIDER_DELETED
+
+
+@preview(DeploymentPreviewToken)
+def preview_deployment(deployment):
+    """Returns the news preview for the respective deployment."""
+
+    raise NotImplementedError()
 
 
 APPLICATION.add_routes((
