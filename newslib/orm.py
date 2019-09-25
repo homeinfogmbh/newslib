@@ -35,8 +35,19 @@ class CustomerProvider(NewslibModel):
     provider = EnumField(Provider)
 
     @classmethod
-    def from_json(cls, json, customer=None, **kwargs):
+    def from_json(cls, json, customer=None, unique=False, **kwargs):
         """Returns a new customer provider from a JSON-ish dict."""
         record = super().from_json(json, **kwargs)
         record.customer = customer
-        return record
+
+        if not unique:
+            return record
+
+        if customer is None:
+            raise ValueError('Cannot add unique entry without customer.')
+
+        try:
+            return cls.get(
+                (cls.customer == customer) & (cls.provider == record.provider))
+        except cls.DoesNotExist:
+            return record

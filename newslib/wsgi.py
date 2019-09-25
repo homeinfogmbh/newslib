@@ -53,7 +53,7 @@ def add_customer_provider():
         raise NO_SUCH_CUSTOMER
 
     customer_provider = CustomerProvider.from_json(
-        request.json, customer=customer)
+        request.json, customer=customer, unique=True)
     customer_provider.save()
     return CUSTOMER_PROVIDER_ADDED.update(id=customer_provider.id)
 
