@@ -35,8 +35,9 @@ def list_customer_providers():
     """Lists customer providers."""
 
     return JSON([
-        customer_provider.to_json() for customer_provider in
-        CustomerProvider.select().where(CustomerProvider.id == CUSTOMER.id)])
+        customer_provider.to_json() for customer_provider
+        in CustomerProvider.select().where(
+            CustomerProvider.customer == CUSTOMER.id)])
 
 
 @authenticated
