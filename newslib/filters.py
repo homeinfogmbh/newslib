@@ -1,9 +1,9 @@
 """Article filtering."""
 
 from ferengi.weltnews import News
-from hinews import article_active, Article
+from hinews import article_active, Article as HomeinfoArticle
 
-from newslib.converters import homeinfo_to_dom, welt_to_dom
+from newslib.article import Article
 from newslib.enumerations import Provider
 from newslib.orm import CustomerProvider
 
@@ -27,13 +27,15 @@ def articles(customer, wanted_providers=None):
     if wanted_providers is not None:
         providers &= wanted_providers
 
+    # Process HOMEINFO news.
     if Provider.HOMEINFO in providers:
-        for article in Article.select().where(article_active()):
+        for article in HomeinfoArticle.select().where(article_active()):
             customers = article.customers
 
             if not customers or customer in customers:
-                yield homeinfo_to_dom(article)
+                yield Article.from_homeinfo(article)
 
+    # Process welt.de news.
     if Provider.WELT in providers:
         for article in News:
-            yield welt_to_dom(article)
+            yield Article.from_welt(article)
