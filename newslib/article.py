@@ -55,6 +55,9 @@ class Article(NamedTuple):
     @property
     def attachment_bytes(self):
         """Returns the bytes of the respective attachment."""
+        if self.image is None:
+            raise ValueError('No attachment set.')
+
         return get(self.image)
 
     @property
