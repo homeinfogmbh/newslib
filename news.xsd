@@ -27,6 +27,13 @@
               </xs:annotation>
             </xs:element>
         </xs:sequence>
+        <xs:attribute name="file_preview_token" type="xs:string">
+            <xs:annotation>
+                <xs:documentation xml:lang="de">
+                    Temporäres Token zur Vorschau der Dateien.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
 
 
