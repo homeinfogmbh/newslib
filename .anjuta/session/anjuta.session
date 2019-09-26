@@ -1,15 +1,16 @@
 [Anjuta]
+Maximized=1
 Geometry=1920x983+0+27
-
-[File Loader]
-Files=../../newslib/converters.py#10%%%../../news.xsd#127%%%../../newslib/orm.py#27%%%../../setup.py#21%%%../../Makefile#21%%%../../newslib/__init__.py#10%%%../../newslib/config.py#1%%%../../newslib/enumerations.py#6%%%../../newslib/filters.py#40%%%../../newslib/wsgi.py#1%%%../../newslib/messages.py#20
-
-[Document Manager]
-bookmarks=<?xml version="1.0" encoding="UTF-8"?>\n<bookmarks/>\n
 
 [Execution]
 Run in terminal=2
 Working directories=../../.
+
+[File Loader]
+Files=../../newslib/converters.py#13%%%../../news.xsd#107%%%../../newslib/orm.py#38%%%../../setup.py#21%%%../../Makefile#21%%%../../newslib/__init__.py#10%%%../../newslib/config.py#1%%%../../newslib/enumerations.py#6%%%../../newslib/filters.py#17%%%../../newslib/wsgi.py#78%%%../../newslib/messages.py#20
+
+[Document Manager]
+bookmarks=<?xml version="1.0" encoding="UTF-8"?>\n<bookmarks/>\n
 
 [Debugger]
 Stop at beginning=2
