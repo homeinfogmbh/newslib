@@ -70,6 +70,7 @@ class Article(NamedTuple):
             metadata = FileMetaData.from_bytes(self.attachment_bytes)
         except FileError:
             LOGGER.error('Could not retrieve file %i.', self.image)
+            return None
 
         return Attachment(
             metadata.filename, mimetype=metadata.mimetype,
