@@ -4,9 +4,8 @@ from datetime import datetime
 from logging import getLogger
 from typing import NamedTuple
 
-from filedb import FileError, get
+from filedb import META_FIELDS, File
 from hinews.orm import Image
-from mimeutil import FileMetaData
 
 from newslib.dom import Article as ArticleDOM, Attachment
 from newslib.enumerations import Provider
@@ -53,12 +52,12 @@ class Article(NamedTuple):
             news.source, news.published, news.image)
 
     @property
-    def attachment_bytes(self):
-        """Returns the bytes of the respective attachment."""
+    def attachment_metadata(self):
+        """Returns the filedb.File."""
         if self.image is None:
             raise ValueError('No attachment set.')
 
-        return get(self.image)
+        return File.select(*META_FIELDS).where(File.id == self.image).get()
 
     @property
     def attachment_dom(self):
@@ -67,14 +66,14 @@ class Article(NamedTuple):
             return None
 
         try:
-            metadata = FileMetaData.from_bytes(self.attachment_bytes)
-        except FileError:
+            file = self.attachment_metadata
+        except File.DoesNotExist:
             LOGGER.error('Could not retrieve file %i.', self.image)
             return None
 
         return Attachment(
-            metadata.filename, mimetype=metadata.mimetype,
-            sha256sum=metadata.sha256sum, id=self.image)
+            file.filename, mimetype=file.mimetype, sha256sum=file.sha256sum,
+            id=self.image)
 
     def to_dom(self):
         """Returns an article as a DOM model."""
