@@ -4,7 +4,7 @@ from datetime import datetime
 from logging import getLogger
 from typing import NamedTuple
 
-from filedb import META_FIELDS, File
+from filedb import File
 from hinews.orm import Image
 
 from newslib.dom import Article as ArticleDOM, Attachment
@@ -26,7 +26,7 @@ class Article(NamedTuple):
     text: str
     source: str
     published: datetime
-    image: int
+    image: File
 
     @classmethod
     def from_homeinfo(cls, article):
@@ -36,7 +36,7 @@ class Article(NamedTuple):
         except Image.DoesNotExist:
             image = None
         else:
-            image = image._file     # pylint: disable=W0212
+            image = image.file
 
         return cls(
             Provider.HOMEINFO, article.title, article.subtitle, article.text,
@@ -52,28 +52,14 @@ class Article(NamedTuple):
             news.source, news.published, news.image)
 
     @property
-    def attachment_metadata(self):
-        """Returns the filedb.File."""
-        if self.image is None:
-            raise ValueError('No attachment set.')
-
-        return File.select(*META_FIELDS).where(File.id == self.image).get()
-
-    @property
     def attachment_dom(self):
         """Returns the attachment DOM."""
         if not self.image:
             return None
 
-        try:
-            file = self.attachment_metadata
-        except File.DoesNotExist:
-            LOGGER.error('Could not retrieve file %i.', self.image)
-            return None
-
         return Attachment(
-            file.filename, mimetype=file.mimetype, sha256sum=file.sha256sum,
-            id=self.image)
+            self.image.filename, mimetype=self.image.mimetype,
+            sha256sum=self.image.sha256sum, id=self.image.id)
 
     def to_dom(self):
         """Returns an article as a DOM model."""
