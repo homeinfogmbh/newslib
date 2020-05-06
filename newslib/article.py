@@ -51,16 +51,6 @@ class Article(NamedTuple):
             Provider.WELT, news.headline, news.subline, news.textmessage,
             news.source, news.published, news.image)
 
-    @property
-    def attachment_dom(self):
-        """Returns the attachment DOM."""
-        if not self.image:
-            return None
-
-        return Attachment(
-            self.image.filename, mimetype=self.image.mimetype,
-            sha256sum=self.image.sha256sum, id=self.image.id)
-
     def to_dom(self):
         """Returns an article as a DOM model."""
         article = ArticleDOM()
@@ -70,5 +60,10 @@ class Article(NamedTuple):
         article.text = self.text
         article.source = self.source
         article.published = self.published
-        article.image = self.attachment_dom
+
+        if self.image:
+            article.image = Attachment(
+                self.image.filename, mimetype=self.image.mimetype,
+                sha256sum=self.image.sha256sum, id=self.image.id)
+
         return article
