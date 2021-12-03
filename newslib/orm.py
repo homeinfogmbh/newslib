@@ -3,16 +3,15 @@
 from peewee import ForeignKeyField
 
 from mdb import Customer
-from peeweeplus import EnumField, JSONModel, MySQLDatabase
+from peeweeplus import EnumField, JSONModel, MySQLDatabaseProxy
 
-from newslib.config import CONFIG
 from newslib.enumerations import Provider
 
 
 __all__ = ['CustomerProvider']
 
 
-DATABASE = MySQLDatabase.from_config(CONFIG['db'])
+DATABASE = MySQLDatabaseProxy('newslib')
 
 
 class NewslibModel(JSONModel):
