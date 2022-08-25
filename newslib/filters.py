@@ -37,5 +37,5 @@ def articles(customer, wanted_providers=None):
 
     # Process welt.de news.
     if Provider.WELT in providers:
-        for article in News:
+        for article in News.select().where(True):
             yield Article.from_welt(article)
