@@ -1,13 +1,15 @@
 """Conversion from news from welt.de."""
 
+from __future__ import annotations
 from datetime import datetime
 from logging import getLogger
-from typing import NamedTuple
+from typing import Any, NamedTuple
 
 from filedb import File
-from hinews.orm import Image
+import hinews
+from ferengi import weltnews
 
-from newslib.dom import Article as ArticleDOM, Attachment
+from newslib import dom
 from newslib.enumerations import Provider
 
 
@@ -29,31 +31,33 @@ class Article(NamedTuple):
     image: File
 
     @classmethod
-    def from_homeinfo(cls, article):
+    def from_homeinfo(cls, article: hinews.Article) -> Article:
         """Returns a new article from a HOMEINFO News article."""
         try:
             image = article.images.get()
-        except Image.DoesNotExist:
+        except hinews.Image.DoesNotExist:
             image = None
         else:
             image = image.file
 
         return cls(
             Provider.HOMEINFO, article.title, article.subtitle, article.text,
-            article.source, article.created, image)
+            article.source, article.created, image
+        )
 
     @classmethod
-    def from_welt(cls, news):
+    def from_welt(cls, news: weltnews.News):
         """Returns an article / attachment data
         pair for a welt.de news record.
         """
         return cls(
             Provider.WELT, news.headline, news.subline, news.textmessage,
-            news.source, news.published, news.image)
+            news.source, news.published, news.image
+        )
 
     def to_dom(self):
         """Returns an article as a DOM model."""
-        article = ArticleDOM()
+        article: Any = dom.Article()
         article.provider = self.provider.value
         article.title = self.title
         article.subtitle = self.subtitle
@@ -62,8 +66,9 @@ class Article(NamedTuple):
         article.published = self.published
 
         if self.image:
-            article.image = Attachment(
+            article.image = dom.Attachment(
                 self.image.filename, mimetype=self.image.mimetype,
-                sha256sum=self.image.sha256sum, id=self.image.id)
+                sha256sum=self.image.sha256sum, id=self.image.id
+            )
 
         return article

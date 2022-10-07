@@ -1,5 +1,8 @@
 """Object-relational mappings."""
 
+from __future__ import annotations
+from typing import Optional, Union
+
 from peewee import ForeignKeyField
 
 from mdb import Customer
@@ -17,7 +20,7 @@ DATABASE = MySQLDatabaseProxy('newslib')
 class NewslibModel(JSONModel):
     """Base model for the news library database."""
 
-    class Meta:     # pylint: disable=C0111,R0903
+    class Meta:
         database = DATABASE
         schema = database.database
 
@@ -25,16 +28,23 @@ class NewslibModel(JSONModel):
 class CustomerProvider(NewslibModel):
     """Whitelist of news providers for customers."""
 
-    class Meta:     # pylint: disable=C0111,R0903
+    class Meta:
         table_name = 'customer_provider'
 
     customer = ForeignKeyField(
         Customer, column_name='customer', on_delete='CASCADE',
-        on_update='CASCADE')
+        on_update='CASCADE'
+    )
     provider = EnumField(Provider)
 
     @classmethod
-    def from_json(cls, json, customer=None, unique=False, **kwargs):
+    def from_json(
+            cls,
+            json: dict,
+            customer: Optional[Union[Customer, int]] = None,
+            unique: bool = False,
+            **kwargs
+    ) -> CustomerProvider:
         """Returns a new customer provider from a JSON-ish dict."""
         record = super().from_json(json, **kwargs)
         record.customer = customer

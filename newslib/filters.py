@@ -1,7 +1,10 @@
 """Article filtering."""
 
-from ferengi.weltnews import News
-from hinews import article_active, Article as HomeinfoArticle
+from typing import Iterator, Optional, Union
+
+from ferengi import weltnews
+from mdb import Customer
+import hinews
 
 from newslib.article import Article
 from newslib.enumerations import Provider
@@ -11,7 +14,7 @@ from newslib.orm import CustomerProvider
 __all__ = ['articles']
 
 
-def _customer_providers(customer):
+def _customer_providers(customer: Union[Customer, int]) -> Iterator[Provider]:
     """Yields the providers of the respective customer."""
 
     for provider in CustomerProvider.select().where(
@@ -19,7 +22,10 @@ def _customer_providers(customer):
         yield provider.provider
 
 
-def articles(customer, wanted_providers=None):
+def articles(
+        customer: Union[Customer, int],
+        wanted_providers: Optional[set[Provider]] = None
+) -> Iterator[Article]:
     """Yields the respective articles."""
 
     providers = set(_customer_providers(customer))
@@ -29,7 +35,7 @@ def articles(customer, wanted_providers=None):
 
     # Process HOMEINFO news.
     if Provider.HOMEINFO in providers:
-        for article in HomeinfoArticle.select().where(article_active()):
+        for article in hinews.Article.select().where(hinews.article_active()):
             customers = article.customers
 
             if not customers or customer in customers:
@@ -37,5 +43,5 @@ def articles(customer, wanted_providers=None):
 
     # Process welt.de news.
     if Provider.WELT in providers:
-        for article in News.select().where(True):
+        for article in weltnews.News.select().where(True):
             yield Article.from_welt(article)
