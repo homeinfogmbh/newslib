@@ -9,6 +9,7 @@ __all__ = ['Provider']
 class Provider(Enum):
     """Enumeration of available news providers."""
 
-    HOMEINFO = 'HOMEINFO'
-    WELT = 'welt.de'
     DPA = 'DPA'
+    HOMEINFO = 'HOMEINFO'
+    SPIEGEL = 'spiegel.de'
+    WELT = 'welt.de'
