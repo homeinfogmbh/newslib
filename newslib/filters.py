@@ -18,7 +18,8 @@ def _customer_providers(customer: Union[Customer, int]) -> Iterator[Provider]:
     """Yields the providers of the respective customer."""
 
     for provider in CustomerProvider.select().where(
-            CustomerProvider.customer == customer):
+            CustomerProvider.customer == customer
+    ):
         yield provider.provider
 
 
