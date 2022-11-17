@@ -2,7 +2,7 @@
 
 from typing import Iterator, Optional, Union
 
-from ferengi import weltnews
+from ferengi import spiegelnews, weltnews
 from mdb import Customer
 import hinews
 
@@ -40,6 +40,11 @@ def articles(
 
             if not customers or customer in customers:
                 yield Article.from_homeinfo(article)
+
+    # Process spiegel.de news.
+    if Provider.SPIEGEL in providers:
+        for article in spiegelnews.News.select().where(True):
+            yield Article.from_spiegel(article)
 
     # Process welt.de news.
     if Provider.WELT in providers:
