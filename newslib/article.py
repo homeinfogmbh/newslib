@@ -7,7 +7,7 @@ from typing import Any, NamedTuple
 
 from filedb import File
 import hinews
-from ferengi import weltnews
+from ferengi import spiegelnews, weltnews
 
 from newslib import dom
 from newslib.enumerations import Provider
@@ -24,7 +24,7 @@ class Article(NamedTuple):
 
     provider: Provider
     title: str
-    subtitle: str
+    subtitle: str | None
     text: str
     source: str
     published: datetime
@@ -43,6 +43,14 @@ class Article(NamedTuple):
         return cls(
             Provider.HOMEINFO, article.title, article.subtitle, article.text,
             article.source, article.created, image
+        )
+
+    @classmethod
+    def from_spiegel(cls, news: spiegelnews.News):
+        """Returns an article from a Spiegel.de news entry."""
+        return cls(
+            Provider.SPIEGEL, news.title, None, news.text, news.source,
+            news.published, news.image
         )
 
     @classmethod
