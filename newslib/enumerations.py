@@ -6,7 +6,7 @@ from enum import Enum
 __all__ = ['Provider']
 
 
-class Provider(Enum):
+class Provider(str, Enum):
     """Enumeration of available news providers."""
 
     DPA = 'DPA'
