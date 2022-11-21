@@ -1,7 +1,7 @@
 # ./newslib/dom.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:ab67edf53b6879c2b49324f31ca9c231f572488f
-# Generated 2022-10-07 14:56:44.988791 by PyXB version 1.2.7-DEV using Python 3.10.7.final.0
+# Generated 2022-11-21 12:03:58.323255 by PyXB version 1.2.7-DEV using Python 3.10.8.final.0
 # Namespace http://xml.homeinfo.de/schema/news
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:7f3670a6-463f-11ed-9c37-7427eaa9df7d')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:3289544c-698c-11ed-8416-7427eaa9df7d')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.7-DEV'
@@ -96,9 +96,10 @@ class Provider (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mi
     _XSDLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 134, 4)
     _Documentation = '\n                Verfügbare Nachrichtendienste.\n            '
 Provider._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=Provider, enum_prefix=None)
-Provider.HOMEINFO = Provider._CF_enumeration.addEnumeration(unicode_value='HOMEINFO', tag='HOMEINFO')
-Provider.welt_de = Provider._CF_enumeration.addEnumeration(unicode_value='welt.de', tag='welt_de')
 Provider.DPA = Provider._CF_enumeration.addEnumeration(unicode_value='DPA', tag='DPA')
+Provider.HOMEINFO = Provider._CF_enumeration.addEnumeration(unicode_value='HOMEINFO', tag='HOMEINFO')
+Provider.spiegel_de = Provider._CF_enumeration.addEnumeration(unicode_value='spiegel.de', tag='spiegel_de')
+Provider.welt_de = Provider._CF_enumeration.addEnumeration(unicode_value='welt.de', tag='welt_de')
 Provider._InitializeFacetMap(Provider._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'Provider', Provider)
 _module_typeBindings.Provider = Provider
