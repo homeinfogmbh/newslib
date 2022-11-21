@@ -72,6 +72,13 @@
                   </xs:documentation>
               </xs:annotation>
             </xs:element>
+            <xs:element name="author" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                  <xs:documentation xml:lang="de">
+                      Autor.
+                  </xs:documentation>
+              </xs:annotation>
+            </xs:element>
             <xs:element name="published" type="xs:dateTime" minOccurs="0">
               <xs:annotation>
                   <xs:documentation xml:lang="de">
@@ -139,6 +146,7 @@
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="DPA"/>
+            <xs:enumeration value="google.com"/>
             <xs:enumeration value="HOMEINFO"/>
             <xs:enumeration value="spiegel.de"/>
             <xs:enumeration value="welt.de"/>

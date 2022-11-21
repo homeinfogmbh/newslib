@@ -3,11 +3,11 @@
 from __future__ import annotations
 from datetime import datetime
 from logging import getLogger
-from typing import Any, NamedTuple
+from typing import Any, NamedTuple, Optional
 
 from filedb import File
 import hinews
-from ferengi import spiegelnews, weltnews
+from ferengi import googlenews, spiegelnews, weltnews
 
 from newslib import dom
 from newslib.enumerations import Provider
@@ -24,11 +24,20 @@ class Article(NamedTuple):
 
     provider: Provider
     title: str
-    subtitle: str | None
+    subtitle: Optional[str]
     text: str
     source: str
+    author: Optional[str]
     published: datetime
     image: File
+
+    @classmethod
+    def from_google(cls, news: googlenews.News):
+        """Returns an article from a Google News RSS feed entry."""
+        return cls(
+            Provider.SPIEGEL, news.title, None, news.text, news.source,
+            news.author, news.published, news.image
+        )
 
     @classmethod
     def from_homeinfo(cls, article: hinews.Article) -> Article:
@@ -42,7 +51,7 @@ class Article(NamedTuple):
 
         return cls(
             Provider.HOMEINFO, article.title, article.subtitle, article.text,
-            article.source, article.created, image
+            article.source, article.author.name, article.created, image
         )
 
     @classmethod
@@ -50,7 +59,7 @@ class Article(NamedTuple):
         """Returns an article from a Spiegel.de news entry."""
         return cls(
             Provider.SPIEGEL, news.title, None, news.text, news.source,
-            news.published, news.image
+            news.author, news.published, news.image
         )
 
     @classmethod
@@ -60,7 +69,7 @@ class Article(NamedTuple):
         """
         return cls(
             Provider.WELT, news.headline, news.subline, news.textmessage,
-            news.source, news.published, news.image
+            news.source, None, news.published, news.image
         )
 
     def to_dom(self):

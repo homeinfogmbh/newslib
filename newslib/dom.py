@@ -1,7 +1,7 @@
 # ./newslib/dom.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:ab67edf53b6879c2b49324f31ca9c231f572488f
-# Generated 2022-11-21 12:03:58.323255 by PyXB version 1.2.7-DEV using Python 3.10.8.final.0
+# Generated 2022-11-21 15:17:30.041374 by PyXB version 1.2.7-DEV using Python 3.10.8.final.0
 # Namespace http://xml.homeinfo.de/schema/news
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:3289544c-698c-11ed-8416-7427eaa9df7d')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:3bad8096-69a7-11ed-9386-7427eaa9df7d')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.7-DEV'
@@ -93,10 +93,11 @@ class Provider (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mi
             """
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'Provider')
-    _XSDLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 134, 4)
+    _XSDLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 141, 4)
     _Documentation = '\n                Verfügbare Nachrichtendienste.\n            '
 Provider._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=Provider, enum_prefix=None)
 Provider.DPA = Provider._CF_enumeration.addEnumeration(unicode_value='DPA', tag='DPA')
+Provider.google_com = Provider._CF_enumeration.addEnumeration(unicode_value='google.com', tag='google_com')
 Provider.HOMEINFO = Provider._CF_enumeration.addEnumeration(unicode_value='HOMEINFO', tag='HOMEINFO')
 Provider.spiegel_de = Provider._CF_enumeration.addEnumeration(unicode_value='spiegel.de', tag='spiegel_de')
 Provider.welt_de = Provider._CF_enumeration.addEnumeration(unicode_value='welt.de', tag='welt_de')
@@ -151,31 +152,31 @@ class Attachment (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_SIMPLE
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'Attachment')
-    _XSDLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 100, 4)
+    _XSDLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 107, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.string
     
     # Attribute sha256sum uses Python identifier sha256sum
     __sha256sum = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'sha256sum'), 'sha256sum', '__httpxml_homeinfo_deschemanews_Attachment_sha256sum', pyxb.binding.datatypes.string, required=True)
-    __sha256sum._DeclarationLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 108, 16)
-    __sha256sum._UseLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 108, 16)
+    __sha256sum._DeclarationLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 115, 16)
+    __sha256sum._UseLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 115, 16)
     
     sha256sum = property(__sha256sum.value, __sha256sum.set, None, '\n                            SHA-256 Prüfsumme.\n                        ')
 
     
     # Attribute mimetype uses Python identifier mimetype
     __mimetype = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'mimetype'), 'mimetype', '__httpxml_homeinfo_deschemanews_Attachment_mimetype', pyxb.binding.datatypes.string, required=True)
-    __mimetype._DeclarationLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 115, 16)
-    __mimetype._UseLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 115, 16)
+    __mimetype._DeclarationLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 122, 16)
+    __mimetype._UseLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 122, 16)
     
     mimetype = property(__mimetype.value, __mimetype.set, None, '\n                            MIME Typ des Bildes.\n                        ')
 
     
     # Attribute id uses Python identifier id
     __id = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'id'), 'id', '__httpxml_homeinfo_deschemanews_Attachment_id', pyxb.binding.datatypes.positiveInteger)
-    __id._DeclarationLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 122, 16)
-    __id._UseLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 122, 16)
+    __id._DeclarationLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 129, 16)
+    __id._UseLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 129, 16)
     
     id = property(__id.value, __id.set, None, '\n                            Datenbank-ID des Bildes.\n                        ')
 
@@ -233,15 +234,22 @@ class Article (pyxb.binding.basis.complexTypeDefinition):
     source = property(__source.value, __source.set, None, '\n                      Quellenangabe.\n                  ')
 
     
+    # Element author uses Python identifier author
+    __author = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'author'), 'author', '__httpxml_homeinfo_deschemanews_Article_author', False, pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 75, 12), )
+
+    
+    author = property(__author.value, __author.set, None, '\n                      Autor.\n                  ')
+
+    
     # Element published uses Python identifier published
-    __published = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'published'), 'published', '__httpxml_homeinfo_deschemanews_Article_published', False, pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 75, 12), )
+    __published = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'published'), 'published', '__httpxml_homeinfo_deschemanews_Article_published', False, pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 82, 12), )
 
     
     published = property(__published.value, __published.set, None, '\n                      Datum und Uhrzeit der Veröffentlichung.\n                  ')
 
     
     # Element image uses Python identifier image
-    __image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'image'), 'image', '__httpxml_homeinfo_deschemanews_Article_image', False, pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 82, 12), )
+    __image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'image'), 'image', '__httpxml_homeinfo_deschemanews_Article_image', False, pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 89, 12), )
 
     
     image = property(__image.value, __image.set, None, '\n                      Titelbild.\n                  ')
@@ -249,8 +257,8 @@ class Article (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute provider uses Python identifier provider
     __provider = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'provider'), 'provider', '__httpxml_homeinfo_deschemanews_Article_provider', _module_typeBindings.Provider, required=True)
-    __provider._DeclarationLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 90, 8)
-    __provider._UseLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 90, 8)
+    __provider._DeclarationLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 97, 8)
+    __provider._UseLocation = pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 97, 8)
     
     provider = property(__provider.value, __provider.set, None, '\n                  Datenbank-ID.\n              ')
 
@@ -259,6 +267,7 @@ class Article (pyxb.binding.basis.complexTypeDefinition):
         __subtitle.name() : __subtitle,
         __text.name() : __text,
         __source.name() : __source,
+        __author.name() : __author,
         __published.name() : __published,
         __image.name() : __image
     })
@@ -309,9 +318,11 @@ Article._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None,
 
 Article._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'source'), pyxb.binding.datatypes.string, scope=Article, documentation='\n                      Quellenangabe.\n                  ', location=pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 68, 12)))
 
-Article._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'published'), pyxb.binding.datatypes.dateTime, scope=Article, documentation='\n                      Datum und Uhrzeit der Veröffentlichung.\n                  ', location=pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 75, 12)))
+Article._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'author'), pyxb.binding.datatypes.string, scope=Article, documentation='\n                      Autor.\n                  ', location=pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 75, 12)))
 
-Article._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'image'), Attachment, scope=Article, documentation='\n                      Titelbild.\n                  ', location=pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 82, 12)))
+Article._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'published'), pyxb.binding.datatypes.dateTime, scope=Article, documentation='\n                      Datum und Uhrzeit der Veröffentlichung.\n                  ', location=pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 82, 12)))
+
+Article._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'image'), Attachment, scope=Article, documentation='\n                      Titelbild.\n                  ', location=pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 89, 12)))
 
 def _BuildAutomaton_ ():
     # Remove this helper function from the namespace after it is invoked
@@ -328,6 +339,8 @@ def _BuildAutomaton_ ():
     counters.add(cc_2)
     cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 82, 12))
     counters.add(cc_3)
+    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 89, 12))
+    counters.add(cc_4)
     states = []
     final_update = None
     symbol = pyxb.binding.content.ElementUse(Article._UseForTag(pyxb.namespace.ExpandedName(None, 'title')), pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 47, 12))
@@ -348,14 +361,19 @@ def _BuildAutomaton_ ():
     states.append(st_3)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(Article._UseForTag(pyxb.namespace.ExpandedName(None, 'published')), pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 75, 12))
+    symbol = pyxb.binding.content.ElementUse(Article._UseForTag(pyxb.namespace.ExpandedName(None, 'author')), pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 75, 12))
     st_4 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_4)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_3, False))
-    symbol = pyxb.binding.content.ElementUse(Article._UseForTag(pyxb.namespace.ExpandedName(None, 'image')), pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 82, 12))
+    symbol = pyxb.binding.content.ElementUse(Article._UseForTag(pyxb.namespace.ExpandedName(None, 'published')), pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 82, 12))
     st_5 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_5)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_4, False))
+    symbol = pyxb.binding.content.ElementUse(Article._UseForTag(pyxb.namespace.ExpandedName(None, 'image')), pyxb.utils.utility.Location('/home/neumann/Projekte/newslib/news.xsd', 89, 12))
+    st_6 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_6)
     transitions = []
     transitions.append(fac.Transition(st_1, [
          ]))
@@ -375,6 +393,8 @@ def _BuildAutomaton_ ():
          ]))
     transitions.append(fac.Transition(st_5, [
          ]))
+    transitions.append(fac.Transition(st_6, [
+         ]))
     st_2._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_3, [
@@ -383,17 +403,27 @@ def _BuildAutomaton_ ():
         fac.UpdateInstruction(cc_1, False) ]))
     transitions.append(fac.Transition(st_5, [
         fac.UpdateInstruction(cc_1, False) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_1, False) ]))
     st_3._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_4, [
         fac.UpdateInstruction(cc_2, True) ]))
     transitions.append(fac.Transition(st_5, [
         fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_2, False) ]))
     st_4._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_5, [
         fac.UpdateInstruction(cc_3, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_3, False) ]))
     st_5._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_4, True) ]))
+    st_6._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
 Article._Automaton = _BuildAutomaton_()
 
