@@ -15,6 +15,7 @@ uninstall:
 
 clean:
 	@ rm -Rf ./build
+	@ rm -f newslib/dom.py
 
 pull:
 	@ git pull
