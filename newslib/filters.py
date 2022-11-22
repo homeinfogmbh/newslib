@@ -37,7 +37,7 @@ def articles(
     # Process spiegel.de news.
     if Provider.GOOGLE in providers:
         for article in googlenews.News.select().where(True):
-            yield Article.from_spiegel(article)
+            yield Article.from_google(article)
 
     # Process HOMEINFO news.
     if Provider.HOMEINFO in providers:
