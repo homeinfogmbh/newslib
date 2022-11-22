@@ -4,7 +4,6 @@ from typing import Iterator, Optional, Union
 
 from ferengi import googlenews, spiegelnews, weltnews
 from mdb import Customer
-import hinews
 
 from newslib.article import Article
 from newslib.enumerations import Provider
@@ -38,14 +37,6 @@ def articles(
     if Provider.GOOGLE in providers:
         for article in googlenews.News.select().where(True):
             yield Article.from_google(article)
-
-    # Process HOMEINFO news.
-    if Provider.HOMEINFO in providers:
-        for article in hinews.Article.select().where(hinews.article_active()):
-            customers = article.customers
-
-            if not customers or customer in customers:
-                yield Article.from_homeinfo(article)
 
     # Process spiegel.de news.
     if Provider.SPIEGEL in providers:

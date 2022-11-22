@@ -17,7 +17,6 @@ setup(
     install_requires=[
         'ferengi',
         'filedb',
-        'hinews',
         'mdb',
         'newslib',
         'peewee',

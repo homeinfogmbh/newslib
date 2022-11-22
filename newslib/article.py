@@ -6,7 +6,6 @@ from logging import getLogger
 from typing import Any, NamedTuple, Optional
 
 from filedb import File
-import hinews
 from ferengi import googlenews, spiegelnews, weltnews
 
 from newslib import dom
@@ -37,21 +36,6 @@ class Article(NamedTuple):
         return cls(
             Provider.GOOGLE, news.title, None, news.text, news.source,
             news.author, news.published, news.image
-        )
-
-    @classmethod
-    def from_homeinfo(cls, article: hinews.Article) -> Article:
-        """Returns a new article from a HOMEINFO News article."""
-        try:
-            image = article.images.get()
-        except hinews.Image.DoesNotExist:
-            image = None
-        else:
-            image = image.file
-
-        return cls(
-            Provider.HOMEINFO, article.title, article.subtitle, article.text,
-            article.source, article.author.name, article.created, image
         )
 
     @classmethod

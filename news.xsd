@@ -145,9 +145,7 @@
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="DPA"/>
             <xs:enumeration value="google.com"/>
-            <xs:enumeration value="HOMEINFO"/>
             <xs:enumeration value="spiegel.de"/>
             <xs:enumeration value="welt.de"/>
         </xs:restriction>
