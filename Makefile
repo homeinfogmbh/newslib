@@ -2,7 +2,7 @@ FILE_LIST = ./.installed_files.txt
 
 .PHONY: pull push clean generate-bindings install uninstall
 
-default: | pull clean generate-bindings install
+default: | clean pull generate-bindings install
 
 generate-bindings:
 	@ pyxbgen -u news.xsd -m dom --module-prefix=newslib
