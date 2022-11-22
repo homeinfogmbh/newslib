@@ -80,6 +80,7 @@ class Article(NamedTuple):
         article.subtitle = self.subtitle
         article.text = self.text
         article.source = self.source
+        article.author = self.author
         article.published = self.published
 
         if self.image:
