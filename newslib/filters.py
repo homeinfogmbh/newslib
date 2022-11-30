@@ -33,10 +33,19 @@ def articles(
     if wanted_providers is not None:
         providers &= wanted_providers
 
-    # Process spiegel.de news.
-    if Provider.GOOGLE in providers:
-        for article in googlenews.News.select().where(True):
-            yield Article.from_google(article)
+    # Process Google Hannover news.
+    if Provider.GOOGLE_HANNOVER in providers:
+        for article in googlenews.News.select().where(
+                googlenews.News.source == googlenews.CITIES['Hannover']
+        ):
+            yield Article.from_google(Provider.GOOGLE_HANNOVER, article)
+
+    # Process Google Würzburg news.
+    if Provider.GOOGLE_WUERZBURG in providers:
+        for article in googlenews.News.select().where(
+                googlenews.News.source == googlenews.CITIES['Würzburg']
+        ):
+            yield Article.from_google(Provider.GOOGLE_WUERZBURG, article)
 
     # Process spiegel.de news.
     if Provider.SPIEGEL in providers:

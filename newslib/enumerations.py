@@ -9,6 +9,7 @@ __all__ = ['Provider']
 class Provider(str, Enum):
     """Enumeration of available news providers."""
 
-    GOOGLE = 'google.com'
+    GOOGLE_HANNOVER = 'Google Hannover'
+    GOOGLE_WUERZBURG = 'Google Würzburg'
     SPIEGEL = 'spiegel.de'
     WELT = 'welt.de'

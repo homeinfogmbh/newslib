@@ -31,10 +31,10 @@ class Article(NamedTuple):
     image: File
 
     @classmethod
-    def from_google(cls, news: googlenews.News) -> Article:
+    def from_google(cls, provider: Provider, news: googlenews.News) -> Article:
         """Returns an article from a Google News RSS feed entry."""
         return cls(
-            Provider.GOOGLE, news.title, None, news.text, news.source,
+            provider, news.title, None, news.text, news.source,
             news.author, news.published, news.image
         )
 
