@@ -13,6 +13,16 @@ from newslib.orm import CustomerProvider
 __all__ = ['articles']
 
 
+GOOGLE_PROVIDERS = {
+    Provider.GOOGLE_BGW_BIELEFELD_FACEBOOK,
+    Provider.GOOGLE_BGW_BIELEFELD_WEBSITE,
+    Provider.GOOGLE_HANNOVER,
+    Provider.GOOGLE_HANNOVER_INSTAGRAM,
+    Provider.GOOGLE_WUERZBURG,
+    Provider.GOOGLE_WGH_HERRENHAUSEN_FACEBOOK
+}
+
+
 def _customer_providers(customer: Union[Customer, int]) -> Iterator[Provider]:
     """Yields the providers of the respective customer."""
 
@@ -33,19 +43,15 @@ def articles(
     if wanted_providers is not None:
         providers &= wanted_providers
 
-    # Process Google Hannover news.
-    if Provider.GOOGLE_HANNOVER in providers:
-        for article in googlenews.News.select().where(
-                googlenews.News.source == googlenews.CITIES['Hannover']
-        ):
-            yield Article.from_google(Provider.GOOGLE_HANNOVER, article)
-
-    # Process Google Würzburg news.
-    if Provider.GOOGLE_WUERZBURG in providers:
-        for article in googlenews.News.select().where(
-                googlenews.News.source == googlenews.CITIES['Würzburg']
-        ):
-            yield Article.from_google(Provider.GOOGLE_WUERZBURG, article)
+    # Process Google news.
+    for provider in GOOGLE_PROVIDERS:
+        if provider in providers:
+            for article in googlenews.News.select().where(
+                    googlenews.News.source == googlenews.FEEDS[
+                        provider.value.replace('Google RSS', '').strip()
+                    ]
+            ):
+                yield Article.from_google(provider, article)
 
     # Process spiegel.de news.
     if Provider.SPIEGEL in providers:
