@@ -150,7 +150,7 @@
             <xs:enumeration value="Google RSS Hannover"/>
             <xs:enumeration value="Google RSS #hannover on Instagram"/>
             <xs:enumeration value="Google RSS Würzburg"/>
-            <xs:enumeration value="WGH Herrenhausen Facebook"/>
+            <xs:enumeration value="Google RSS WGH Herrenhausen Facebook"/>
             <xs:enumeration value="spiegel.de"/>
             <xs:enumeration value="welt.de"/>
         </xs:restriction>
