@@ -6,7 +6,7 @@ from logging import getLogger
 from typing import Any, NamedTuple, Optional
 
 from filedb import File
-from ferengi import googlenews, spiegelnews, weltnews
+from ferengi import rssapp, spiegelnews, weltnews
 
 from newslib import dom
 from newslib.enumerations import Provider
@@ -31,8 +31,8 @@ class Article(NamedTuple):
     image: File
 
     @classmethod
-    def from_google(cls, provider: Provider, news: googlenews.News) -> Article:
-        """Returns an article from a Google News RSS feed entry."""
+    def from_rssapp(cls, provider: Provider, news: rssapp.News) -> Article:
+        """Returns an article from a rss.app feed entry."""
         return cls(
             provider, news.title, None, news.text, news.source,
             news.author, news.published, news.image

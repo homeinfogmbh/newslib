@@ -145,12 +145,12 @@
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Google RSS BGW Bielefeld Facebook"/>
-            <xs:enumeration value="Google RSS BGW Bielefeld Website"/>
-            <xs:enumeration value="Google RSS Hannover"/>
-            <xs:enumeration value="Google RSS #hannover on Instagram"/>
-            <xs:enumeration value="Google RSS Würzburg"/>
-            <xs:enumeration value="Google RSS WGH Herrenhausen Facebook"/>
+            <xs:enumeration value="RSS.APP BGW Bielefeld Facebook"/>
+            <xs:enumeration value="RSS.APP BGW Bielefeld Website"/>
+            <xs:enumeration value="RSS.APP Hannover"/>
+            <xs:enumeration value="RSS.APP #hannover on Instagram"/>
+            <xs:enumeration value="RSS.APP Würzburg"/>
+            <xs:enumeration value="RSS.APP WGH Herrenhausen Facebook"/>
             <xs:enumeration value="spiegel.de"/>
             <xs:enumeration value="welt.de"/>
         </xs:restriction>
