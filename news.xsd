@@ -94,10 +94,10 @@
               </xs:annotation>
             </xs:element>
         </xs:sequence>
-        <xs:attribute name="provider" type="Provider" use="required">
+        <xs:attribute name="provider" type="xs:string" use="required">
           <xs:annotation>
               <xs:documentation xml:lang="de">
-                  Datenbank-ID.
+                  Name des Nachrichtenanbieters.
               </xs:documentation>
           </xs:annotation>
         </xs:attribute>
@@ -136,23 +136,4 @@
           </xs:extension>
       </xs:simpleContent>
     </xs:complexType>
-
-
-    <xs:simpleType name="Provider">
-        <xs:annotation>
-            <xs:documentation xml:lang="de">
-                Verfügbare Nachrichtendienste.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="RSS.APP BGW Bielefeld Facebook"/>
-            <xs:enumeration value="RSS.APP BGW Bielefeld Website"/>
-            <xs:enumeration value="RSS.APP Hannover"/>
-            <xs:enumeration value="RSS.APP #hannover on Instagram"/>
-            <xs:enumeration value="RSS.APP Würzburg"/>
-            <xs:enumeration value="RSS.APP WGH Herrenhausen Facebook"/>
-            <xs:enumeration value="spiegel.de"/>
-            <xs:enumeration value="welt.de"/>
-        </xs:restriction>
-    </xs:simpleType>
 </xs:schema>

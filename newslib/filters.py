@@ -1,5 +1,6 @@
 """Article filtering."""
 
+from collections import defaultdict
 from typing import Iterator, Optional, Union
 
 from ferengi import rssapp, spiegelnews, weltnews
@@ -13,17 +14,7 @@ from newslib.orm import CustomerProvider
 __all__ = ['articles']
 
 
-RSS_APP_PROVIDERS = {
-    Provider.RSS_APP_BGW_BIELEFELD_FACEBOOK,
-    Provider.RSS_APP_BGW_BIELEFELD_WEBSITE,
-    Provider.RSS_APP_HANNOVER,
-    Provider.RSS_APP_HANNOVER_INSTAGRAM,
-    Provider.RSS_APP_WUERZBURG,
-    Provider.RSS_APP_WGH_HERRENHAUSEN_FACEBOOK
-}
-
-
-def _customer_providers(customer: Union[Customer, int]) -> Iterator[Provider]:
+def _customer_providers(customer: Union[Customer, int]) -> Iterator[str]:
     """Yields the providers of the respective customer."""
 
     for provider in CustomerProvider.select().where(
@@ -32,26 +23,35 @@ def _customer_providers(customer: Union[Customer, int]) -> Iterator[Provider]:
         yield provider.provider
 
 
-def articles(
+def _get_providers(
         customer: Union[Customer, int],
-        wanted_providers: Optional[set[Provider]] = None
-) -> Iterator[Article]:
-    """Yields the respective articles."""
+        wanted_providers: Optional[set[str]]
+) -> set[str]:
+    """Returns the news providers dict."""
 
     providers = set(_customer_providers(customer))
 
     if wanted_providers is not None:
         providers &= wanted_providers
 
-    # Process rss.app news.
-    for provider in RSS_APP_PROVIDERS:
-        if provider in providers:
-            for article in rssapp.News.select().where(
-                    rssapp.News.source == rssapp.FEEDS[
-                        provider.value.replace('Google RSS', '').strip()
-                    ]
-            ):
-                yield Article.from_rssapp(provider, article)
+    return providers
+
+
+def articles(
+        customer: Union[Customer, int],
+        wanted_providers: Optional[set[Provider]] = None
+) -> Iterator[Article]:
+    """Yields the respective articles."""
+
+    providers = _get_providers(customer, wanted_providers)
+
+    for article in rssapp.News.select(rssapp.News, rssapp.Provider).join(
+            rssapp.Provider,
+            on=rssapp.News.source == rssapp.Provider.url
+    ).where(
+            rssapp.Provider.name << providers
+    ):
+        yield Article.from_rssapp(article.provider.name, article)
 
     # Process spiegel.de news.
     if Provider.SPIEGEL in providers:

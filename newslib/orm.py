@@ -3,12 +3,10 @@
 from __future__ import annotations
 from typing import Optional, Union
 
-from peewee import ForeignKeyField
+from peewee import CharField, ForeignKeyField
 
 from mdb import Customer
-from peeweeplus import EnumField, JSONModel, MySQLDatabaseProxy
-
-from newslib.enumerations import Provider
+from peeweeplus import JSONModel, MySQLDatabaseProxy
 
 
 __all__ = ['CustomerProvider']
@@ -35,7 +33,7 @@ class CustomerProvider(NewslibModel):
         Customer, column_name='customer', on_delete='CASCADE',
         on_update='CASCADE'
     )
-    provider = EnumField(Provider)
+    provider = CharField(255)
 
     @classmethod
     def from_json(
