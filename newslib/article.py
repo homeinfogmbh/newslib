@@ -42,7 +42,7 @@ class Article(NamedTuple):
     def from_spiegel(cls, news: spiegelnews.News):
         """Returns an article from a Spiegel.de news entry."""
         return cls(
-            Provider.SPIEGEL, news.title, None, news.text, news.source,
+            Provider.SPIEGEL.value, news.title, None, news.text, news.source,
             news.author, news.published, news.image
         )
 
@@ -52,7 +52,7 @@ class Article(NamedTuple):
         pair for a welt.de news record.
         """
         return cls(
-            Provider.WELT, news.headline, news.subline, news.textmessage,
+            Provider.WELT.value, news.headline, news.subline, news.textmessage,
             news.source, None, news.published, news.image
         )
 
