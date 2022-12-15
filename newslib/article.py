@@ -21,7 +21,7 @@ LOGGER = getLogger(__file__)
 class Article(NamedTuple):
     """Represents an article."""
 
-    provider: Provider
+    provider: str
     title: str
     subtitle: Optional[str]
     text: str
@@ -31,7 +31,7 @@ class Article(NamedTuple):
     image: File
 
     @classmethod
-    def from_rssapp(cls, provider: Provider, news: rssapp.News) -> Article:
+    def from_rssapp(cls, provider: str, news: rssapp.News) -> Article:
         """Returns an article from a rss.app feed entry."""
         return cls(
             provider, news.title, None, news.text, news.source,
@@ -59,7 +59,7 @@ class Article(NamedTuple):
     def to_dom(self):
         """Returns an article as a DOM model."""
         article: Any = dom.Article()
-        article.provider = self.provider.value
+        article.provider = self.provider
         article.title = self.title
         article.subtitle = self.subtitle
         article.text = self.text
