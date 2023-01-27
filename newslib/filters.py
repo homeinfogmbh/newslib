@@ -1,6 +1,5 @@
 """Article filtering."""
 
-from collections import defaultdict
 from typing import Iterator, Optional, Union
 
 from ferengi import rssapp, spiegelnews, weltnews
