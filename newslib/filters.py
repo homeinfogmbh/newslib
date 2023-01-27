@@ -49,15 +49,15 @@ def articles(
             on=rssapp.News.source == rssapp.Provider.url
     ).where(
             rssapp.Provider.name << providers
-    ):
+    ).iterator():
         yield Article.from_rssapp(article.provider.name, article)
 
     # Process spiegel.de news.
     if Provider.SPIEGEL in providers:
-        for article in spiegelnews.News.select().where(True):
+        for article in spiegelnews.News.select().where(True).iterator():
             yield Article.from_spiegel(article)
 
     # Process welt.de news.
     if Provider.WELT in providers:
-        for article in weltnews.News.select().where(True):
+        for article in weltnews.News.select().where(True).iterator():
             yield Article.from_welt(article)
