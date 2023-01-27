@@ -28,7 +28,7 @@ class Article(NamedTuple):
     source: str
     author: Optional[str]
     published: datetime
-    image: File
+    image: Optional[File]
 
     @classmethod
     def from_rssapp(cls, provider: str, news: rssapp.News) -> Article:
@@ -85,5 +85,5 @@ class Article(NamedTuple):
             'source': self.source,
             'author': self.author,
             'published': self.published.isoformat(),
-            'image': self.image.to_json()
+            'image': None if self.image is None else self.image.to_json()
         }
