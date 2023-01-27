@@ -74,3 +74,16 @@ class Article(NamedTuple):
             )
 
         return article
+
+    def to_json(self) -> dict[str, Any]:
+        """Return a JSON-ish dict."""
+        return {
+            'provider': self.provider,
+            'title': self.title,
+            'subtitle': self.subtitle,
+            'text': self.text,
+            'source': self.source,
+            'author': self.author,
+            'published': self.published.isoformat(),
+            'image': self.image.to_json()
+        }
