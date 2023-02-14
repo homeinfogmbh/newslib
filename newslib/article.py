@@ -85,5 +85,10 @@ class Article(NamedTuple):
             'source': self.source,
             'author': self.author,
             'published': self.published.isoformat(),
-            'image': None if self.image is None else self.image.to_json()
+            'image': None if self.image is None else {
+                'filename': self.image.filename,
+                'mimetype': self.image.mimetype,
+                'sha256sum': self.image.sha256sum,
+                'id': self.image.id
+            }
         }
