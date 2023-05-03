@@ -18,14 +18,14 @@ __all__ = ['APPLICATION']
 APPLICATION = Application('news', cors=True)
 
 
-@APPLICATION.route('/providers', methods=['GET'], strict_slashes=False)
+@APPLICATION.route('/', methods=['GET'], strict_slashes=False)
 def _list_providers() -> JSON:
     """List available news providers."""
 
     return JSON(list(list_providers()))
 
 
-@APPLICATION.route('/news', methods=['POST'], strict_slashes=False)
+@APPLICATION.route('/', methods=['POST'], strict_slashes=False)
 def _get_articles() -> Union[JSON, JSONMessage]:
     """Return articles of the requested customer and providers."""
 
