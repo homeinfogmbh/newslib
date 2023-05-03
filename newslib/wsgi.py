@@ -32,8 +32,12 @@ def _get_articles() -> Union[JSON, JSONMessage]:
     if not (customer := request.json.get('customer')):
         return JSONMessage('No customer specified.')
 
-    providers = request.json.get('providers') or []
+    if providers := request.json.get('providers'):
+        providers = set(providers)
+    else:
+        providers = None
+
     return JSON([
         article.to_json() for article
-        in articles(customer, set(providers) or None)
+        in articles(customer, providers)
     ])
