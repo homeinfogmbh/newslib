@@ -38,7 +38,7 @@ def _get_providers(
 
 def articles(
         customer: Union[Customer, int],
-        wanted_providers: Optional[set[Provider]] = None
+        wanted_providers: Optional[set[str]] = None
 ) -> Iterator[Article]:
     """Yields the respective articles."""
 
