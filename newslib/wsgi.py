@@ -35,5 +35,5 @@ def _get_articles() -> Union[JSON, JSONMessage]:
     providers = request.json.get('providers') or []
     return JSON([
         article.to_json() for article
-        in articles(customer, set(providers))
+        in articles(customer, set(providers) or None)
     ])
