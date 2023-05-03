@@ -17,6 +17,7 @@ setup(
     install_requires=[
         'ferengi',
         'filedb',
+        'flask',
         'mdb',
         'newslib',
         'peewee',

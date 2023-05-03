@@ -5,6 +5,7 @@ from newslib.article import Article
 from newslib.enumerations import Provider
 from newslib.filters import articles
 from newslib.functions import list_providers
+from newslib.wsgi import APPLICATION
 
 
-__all__ = ['articles', 'Article', 'Provider', 'list_providers']
+__all__ = ['APPLICATION', 'articles', 'Article', 'Provider', 'list_providers']
