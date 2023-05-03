@@ -22,8 +22,7 @@ APPLICATION = Application('news', cors=True)
 def _list_providers() -> JSON:
     """List available news providers."""
 
-    return JSON('TEST')
-    # return JSON(list(list_providers()))
+    return JSON(list(list_providers()))
 
 
 @APPLICATION.route('/news', methods=['POST'], strict_slashes=False)
