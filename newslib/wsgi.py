@@ -6,7 +6,8 @@ from typing import Union
 
 from flask import request
 
-from wsgilib import Application, JSON, JSONMessage
+from filedb import File
+from wsgilib import Application, Binary, JSON, JSONMessage
 
 from newslib.filters import articles
 from newslib.functions import list_providers
@@ -41,3 +42,29 @@ def _get_articles() -> Union[JSON, JSONMessage]:
         article.to_json() for article
         in articles(customer, providers)
     ])
+
+
+@APPLICATION.route('/<sha256sum>', methods=['GET'], strict_slashes=False)
+def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
+    """Return articles of the requested customer and providers."""
+
+    if not (customer := request.json.get('customer')):
+        return JSONMessage('No customer specified.')
+
+    if providers := request.json.get('providers'):
+        providers = set(providers)
+    else:
+        providers = None
+
+    images = {
+        article.image.sha256sum: article.image
+        for article in articles(customer, providers)
+        if article.image
+    }
+
+    try:
+        file = images[sha256sum]
+    except KeyError:
+        return JSONMessage('No such image.')
+
+    return Binary(File.get(File.id == file.id).bytes, filename=file.filename)
