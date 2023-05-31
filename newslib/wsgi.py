@@ -37,7 +37,7 @@ def _get_articles() -> Union[JSON, JSONMessage]:
     ])
 
 
-@APPLICATION.route('/<sha256sum>', methods=['GET'], strict_slashes=False)
+@APPLICATION.route('/<sha256sum>', methods=['POST'], strict_slashes=False)
 def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
     """Return the requested image for a given customer and providers."""
 
