@@ -2,7 +2,7 @@
 
 XXX: For internal use only!
 """
-from typing import Union
+from typing import Optional, Union
 
 from flask import request
 
@@ -56,7 +56,7 @@ def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
     return Binary(file.bytes, filename=file.filename)
 
 
-def get_customer_and_providers() -> tuple[int, set[str] | None]:
+def get_customer_and_providers() -> tuple[int, Optional[set[str]]]:
     """Return a tuple of the customer ID and providers set."""
 
     if not (customer := request.json.get('customer')):
