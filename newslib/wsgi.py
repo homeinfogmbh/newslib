@@ -34,9 +34,14 @@ def _get_articles() -> Union[JSON, JSONMessage]:
     return JSON([article.to_json() for article in requested_articles()])
 
 
-@APPLICATION.route('/<sha256sum>', methods=['POST'], strict_slashes=False)
-def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
+@APPLICATION.route('/image', methods=['POST'], strict_slashes=False)
+def _get_image() -> Union[Binary, JSONMessage]:
     """Return the requested image for a given customer and providers."""
+
+    try:
+        sha256sum = request.json['sha256sum']
+    except KeyError:
+        return JSONMessage('No SHA-256 sum provided.', status=400)
 
     try:
         file = File.get(File.id == requested_image_ids()[sha256sum])
