@@ -39,7 +39,7 @@ def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
     """Return the requested image for a given customer and providers."""
 
     try:
-        file = File.get(File.id == requested_image_ids()[sha256sum]).bytes
+        file = File.get(File.id == requested_image_ids()[sha256sum])
     except (KeyError, File.DoesNotExist):
         return JSONMessage('No such image.', status=404)
 
