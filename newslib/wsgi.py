@@ -38,18 +38,22 @@ def _get_articles() -> Union[JSON, JSONMessage]:
 def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
     """Return the requested image for a given customer and providers."""
 
-    images = {
-        article.image.sha256sum: article.image
-        for article in requested_articles()
-        if article.image
-    }
-
     try:
-        file = File.get(File.id == images[sha256sum].id).bytes
+        file = File.get(File.id == requested_image_ids()[sha256sum]).bytes
     except (KeyError, File.DoesNotExist):
         return JSONMessage('No such image.', status=404)
 
     return Binary(file.bytes, filename=file.filename)
+
+
+def requested_image_ids() -> dict[str, int]:
+    """Return a mapping of SHA-256 sums and file IDs."""
+
+    return {
+        article.image.sha256sum: article.image.id
+        for article in requested_articles()
+        if article.image
+    }
 
 
 def requested_articles() -> Iterator[Article]:
