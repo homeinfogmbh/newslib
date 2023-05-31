@@ -30,14 +30,7 @@ def _list_providers() -> JSON:
 def _get_articles() -> Union[JSON, JSONMessage]:
     """Return articles of the requested customer and providers."""
 
-    if not (customer := request.json.get('customer')):
-        return JSONMessage('No customer specified.')
-
-    if providers := request.json.get('providers'):
-        providers = set(providers)
-    else:
-        providers = None
-
+    customer, providers = get_customer_and_providers()
     return JSON([
         article.to_json() for article
         in articles(customer, providers)
@@ -48,14 +41,7 @@ def _get_articles() -> Union[JSON, JSONMessage]:
 def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
     """Return articles of the requested customer and providers."""
 
-    if not (customer := request.json.get('customer')):
-        return JSONMessage('No customer specified.')
-
-    if providers := request.json.get('providers'):
-        providers = set(providers)
-    else:
-        providers = None
-
+    customer, providers = get_customer_and_providers()
     images = {
         article.image.sha256sum: article.image
         for article in articles(customer, providers)
@@ -68,3 +54,15 @@ def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
         return JSONMessage('No such image.')
 
     return Binary(File.get(File.id == file.id).bytes, filename=file.filename)
+
+
+def get_customer_and_providers() -> tuple[int, set[str] | None]:
+    """Returns a tuple of the customer ID and providers set."""
+
+    if not (customer := request.json.get('customer')):
+        raise JSONMessage('No customer specified.')
+
+    if providers := request.json.get('providers'):
+        return customer, set(providers)
+
+    return customer, None
