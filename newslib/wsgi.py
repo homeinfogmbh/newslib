@@ -51,7 +51,7 @@ def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
     try:
         file = File.get(File.id == images[sha256sum].id).bytes
     except (KeyError, File.DoesNotExist):
-        return JSONMessage('No such image.')
+        return JSONMessage('No such image.', status=404)
 
     return Binary(file.bytes, filename=file.filename)
 
@@ -60,7 +60,7 @@ def get_customer_and_providers() -> tuple[int, set[str] | None]:
     """Return a tuple of the customer ID and providers set."""
 
     if not (customer := request.json.get('customer')):
-        raise JSONMessage('No customer specified.')
+        raise JSONMessage('No customer specified.', status=400)
 
     if providers := request.json.get('providers'):
         return customer, set(providers)
