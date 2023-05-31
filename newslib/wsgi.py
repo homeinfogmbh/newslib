@@ -39,7 +39,7 @@ def _get_articles() -> Union[JSON, JSONMessage]:
 
 @APPLICATION.route('/<sha256sum>', methods=['GET'], strict_slashes=False)
 def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
-    """Return articles of the requested customer and providers."""
+    """Return the requested image for a given customer and providers."""
 
     customer, providers = get_customer_and_providers()
     images = {
@@ -57,7 +57,7 @@ def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
 
 
 def get_customer_and_providers() -> tuple[int, set[str] | None]:
-    """Returns a tuple of the customer ID and providers set."""
+    """Return a tuple of the customer ID and providers set."""
 
     if not (customer := request.json.get('customer')):
         raise JSONMessage('No customer specified.')
