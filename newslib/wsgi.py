@@ -49,11 +49,11 @@ def _get_image(sha256sum: str) -> Union[Binary, JSONMessage]:
     }
 
     try:
-        file = images[sha256sum]
-    except KeyError:
+        file = File.get(File.id == images[sha256sum].id).bytes
+    except (KeyError, File.DoesNotExist):
         return JSONMessage('No such image.')
 
-    return Binary(File.get(File.id == file.id).bytes, filename=file.filename)
+    return Binary(file.bytes, filename=file.filename)
 
 
 def get_customer_and_providers() -> tuple[int, set[str] | None]:
