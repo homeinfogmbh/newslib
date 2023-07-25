@@ -7,7 +7,7 @@ from ferengi import rssapp
 from newslib.enumerations import Provider
 
 
-__all__ = ['list_providers']
+__all__ = ["list_providers"]
 
 
 def list_providers() -> Iterator[str]:

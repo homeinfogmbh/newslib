@@ -9,10 +9,10 @@ from mdb import Customer
 from peeweeplus import JSONModel, MySQLDatabaseProxy
 
 
-__all__ = ['CustomerProvider']
+__all__ = ["CustomerProvider"]
 
 
-DATABASE = MySQLDatabaseProxy('newslib')
+DATABASE = MySQLDatabaseProxy("newslib")
 
 
 class NewslibModel(JSONModel):
@@ -27,21 +27,20 @@ class CustomerProvider(NewslibModel):
     """Whitelist of news providers for customers."""
 
     class Meta:
-        table_name = 'customer_provider'
+        table_name = "customer_provider"
 
     customer = ForeignKeyField(
-        Customer, column_name='customer', on_delete='CASCADE',
-        on_update='CASCADE'
+        Customer, column_name="customer", on_delete="CASCADE", on_update="CASCADE"
     )
     provider = CharField(255)
 
     @classmethod
     def from_json(
-            cls,
-            json: dict,
-            customer: Optional[Union[Customer, int]] = None,
-            unique: bool = False,
-            **kwargs
+        cls,
+        json: dict,
+        customer: Optional[Union[Customer, int]] = None,
+        unique: bool = False,
+        **kwargs,
     ) -> CustomerProvider:
         """Returns a new customer provider from a JSON-ish dict."""
         record = super().from_json(json, **kwargs)
@@ -51,10 +50,11 @@ class CustomerProvider(NewslibModel):
             return record
 
         if customer is None:
-            raise ValueError('Cannot add unique entry without customer.')
+            raise ValueError("Cannot add unique entry without customer.")
 
         try:
             return cls.get(
-                (cls.customer == customer) & (cls.provider == record.provider))
+                (cls.customer == customer) & (cls.provider == record.provider)
+            )
         except cls.DoesNotExist:
             return record

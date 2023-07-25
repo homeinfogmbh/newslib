@@ -8,4 +8,4 @@ from newslib.functions import list_providers
 from newslib.wsgi import APPLICATION
 
 
-__all__ = ['APPLICATION', 'articles', 'Article', 'Provider', 'list_providers']
+__all__ = ["APPLICATION", "articles", "Article", "Provider", "list_providers"]

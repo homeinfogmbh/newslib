@@ -12,7 +12,7 @@ from newslib import dom
 from newslib.enumerations import Provider
 
 
-__all__ = ['Article']
+__all__ = ["Article"]
 
 
 LOGGER = getLogger(__file__)
@@ -34,16 +34,28 @@ class Article(NamedTuple):
     def from_rssapp(cls, provider: str, news: rssapp.News) -> Article:
         """Returns an article from a rss.app feed entry."""
         return cls(
-            provider, news.title, None, news.text, news.source,
-            news.author, news.published, news.image
+            provider,
+            news.title,
+            None,
+            news.text,
+            news.source,
+            news.author,
+            news.published,
+            news.image,
         )
 
     @classmethod
     def from_spiegel(cls, news: spiegelnews.News):
         """Returns an article from a Spiegel.de news entry."""
         return cls(
-            Provider.SPIEGEL.value, news.title, None, news.text, news.source,
-            news.author, news.published, news.image
+            Provider.SPIEGEL.value,
+            news.title,
+            None,
+            news.text,
+            news.source,
+            news.author,
+            news.published,
+            news.image,
         )
 
     @classmethod
@@ -52,8 +64,14 @@ class Article(NamedTuple):
         pair for a welt.de news record.
         """
         return cls(
-            Provider.WELT.value, news.headline, news.subline, news.textmessage,
-            news.source, None, news.published, news.image
+            Provider.WELT.value,
+            news.headline,
+            news.subline,
+            news.textmessage,
+            news.source,
+            None,
+            news.published,
+            news.image,
         )
 
     def to_dom(self):
@@ -69,8 +87,10 @@ class Article(NamedTuple):
 
         if self.image:
             article.image = dom.Attachment(
-                self.image.filename, mimetype=self.image.mimetype,
-                sha256sum=self.image.sha256sum, id=self.image.id
+                self.image.filename,
+                mimetype=self.image.mimetype,
+                sha256sum=self.image.sha256sum,
+                id=self.image.id,
             )
 
         return article
@@ -78,17 +98,19 @@ class Article(NamedTuple):
     def to_json(self) -> dict[str, Any]:
         """Return a JSON-ish dict."""
         return {
-            'provider': self.provider,
-            'title': self.title,
-            'subtitle': self.subtitle,
-            'text': self.text,
-            'source': self.source,
-            'author': self.author,
-            'published': self.published.isoformat(),
-            'image': None if self.image is None else {
-                'filename': self.image.filename,
-                'mimetype': self.image.mimetype,
-                'sha256sum': self.image.sha256sum,
-                'id': self.image.id
-            }
+            "provider": self.provider,
+            "title": self.title,
+            "subtitle": self.subtitle,
+            "text": self.text,
+            "source": self.source,
+            "author": self.author,
+            "published": self.published.isoformat(),
+            "image": None
+            if self.image is None
+            else {
+                "filename": self.image.filename,
+                "mimetype": self.image.mimetype,
+                "sha256sum": self.image.sha256sum,
+                "id": self.image.id,
+            },
         }

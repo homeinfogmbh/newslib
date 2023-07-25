@@ -14,39 +14,39 @@ from newslib.filters import articles
 from newslib.functions import list_providers
 
 
-__all__ = ['APPLICATION']
+__all__ = ["APPLICATION"]
 
 
-APPLICATION = Application('news', cors=True)
+APPLICATION = Application("news", cors=True)
 
 
-@APPLICATION.route('/', methods=['GET'], strict_slashes=False)
+@APPLICATION.route("/", methods=["GET"], strict_slashes=False)
 def _list_providers() -> JSON:
     """List available news providers."""
 
     return JSON(list(list_providers()))
 
 
-@APPLICATION.route('/', methods=['POST'], strict_slashes=False)
+@APPLICATION.route("/", methods=["POST"], strict_slashes=False)
 def _get_articles() -> Union[JSON, JSONMessage]:
     """Return articles of the requested customer and providers."""
 
     return JSON([article.to_json() for article in requested_articles()])
 
 
-@APPLICATION.route('/image', methods=['POST'], strict_slashes=False)
+@APPLICATION.route("/image", methods=["POST"], strict_slashes=False)
 def _get_image() -> Union[Binary, JSONMessage]:
     """Return the requested image for a given customer and providers."""
 
     try:
-        sha256sum = request.json['sha256sum']
+        sha256sum = request.json["sha256sum"]
     except KeyError:
-        return JSONMessage('No SHA-256 sum provided.', status=400)
+        return JSONMessage("No SHA-256 sum provided.", status=400)
 
     try:
         file = File.get(File.id == requested_image_ids()[sha256sum])
     except (KeyError, File.DoesNotExist):
-        return JSONMessage('No such image.', status=404)
+        return JSONMessage("No such image.", status=404)
 
     return Binary(file.bytes, filename=file.filename)
 
@@ -64,10 +64,10 @@ def requested_image_ids() -> dict[str, int]:
 def requested_articles() -> Iterator[Article]:
     """Yield articles for the current customer and providers."""
 
-    if not (customer := request.json.get('customer')):
-        raise JSONMessage('No customer specified.', status=400)
+    if not (customer := request.json.get("customer")):
+        raise JSONMessage("No customer specified.", status=400)
 
-    if providers := request.json.get('providers'):
+    if providers := request.json.get("providers"):
         return articles(customer, set(providers))
 
     return articles(customer)
